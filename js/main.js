@@ -1,54 +1,21 @@
 // Функция, возвращающая случайное целое число из переданного диапазона включительно.
 
-function getRandomInt(from, to) {
-  // Проверяем, что оба числа не отрицательные
-  if (from < 0 || to < 0) {
-    throw new Error('Диапазон должен быть положительным.');
-  }
-
-  // Если "от" больше, чем "до", меняем их местами
-  if (from > to) {
-    const temp = from;
-    from = to;
-    to = temp;
-  }
-
-  // Если "от" и "до" одинаковы, возвращаем это число
-  if (from === to) {
-    return from;
-  }
-
-  // Генерируем случайное целое число от "from" до "to" включительно
-  return Math.floor(Math.random() * (to - from + 1)) + from;
+function getRandomPositiveInteger (a, b) {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
 }
 
-getRandomInt(5, 100);
+getRandomPositiveInteger(5, 100);
 
 // Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно. Будет использоваться для генерации временных географических координат в следующем задании.
 
-function getRandomFloat(from, to, decimalPlaces) {
-  // Проверяем, что оба числа не отрицательные
-  if (from < 0 || to < 0) {
-    throw new Error('Диапазон должен быть положительным.');
-  }
-
-  // Проверяем, что количество знаков после запятой — положительное целое число
-  if (decimalPlaces < 0 || !Number.isInteger(decimalPlaces)) {
-    throw new Error('Количество знаков после запятой должно быть положительным целым числом.');
-  }
-
-  // Если "от" больше, чем "до", меняем их местами
-  if (from > to) {
-    const temp = from;
-    from = to;
-    to = temp;
-  }
-
-  // Генерируем случайное число с плавающей точкой в диапазоне "от" до "до"
-  const randomNumber = Math.random() * (to - from) + from;
-
-  // Округляем число до нужного количества знаков после запятой
-  return parseFloat(randomNumber.toFixed(decimalPlaces));
+function getRandomPositiveFloat (a, b, digits = 1) {
+  const lower = Math.min(Math.abs(a), Math.abs(b));
+  const upper = Math.max(Math.abs(a), Math.abs(b));
+  const result = Math.random() * (upper - lower) + lower;
+  return +result.toFixed(digits);
 }
 
-getRandomFloat(0, 100, 2);
+getRandomPositiveFloat(5.2, 4);
